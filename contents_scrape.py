@@ -1,15 +1,18 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
 import time
+import chromedriver_autoinstaller
 
 # Function to set up the WebDriver
 def setup_driver():
+    # Automatically download and install the appropriate ChromeDriver
+    chromedriver_autoinstaller.install()
+
     options = webdriver.ChromeOptions()
-    options.add_argument('--headless')  # Run in headless mode
+    # options.add_argument('--headless')  # Run in headless mode
     options.add_argument('--no-sandbox')
     options.add_argument('--disable-dev-shm-usage')
-    driver = webdriver.Chrome(executable_path='/path/to/chromedriver', options=options)
+    driver = webdriver.Chrome(options=options)
     return driver
 
 # Function to scrape tweets from a given Twitter URL or account name
@@ -46,7 +49,7 @@ def scrape_tweets(url_or_account):
             break
         last_height = new_height
 
-    driver.quit()
+    # driver.quit()
     return tweets
 
 # Example usage
@@ -55,3 +58,6 @@ if __name__ == "__main__":
     tweets = scrape_tweets(url_or_account)
     for tweet in tweets:
         print(tweet)
+    
+    # quit the browser by pressing enter
+    input("Press Enter to quit-------------")
