@@ -62,7 +62,7 @@ def login(driver, username, password):
 
 # Function to scrape tweets from a given Twitter URL or account name
 def scrape_tweets(driver, url_or_account, page_number=1):
-    if "twitter.com" not in url_or_account:
+    if "x.com" not in url_or_account:
         url_or_account = f"https://twitter.com/{url_or_account}"
 
     driver.get(url_or_account)
@@ -108,12 +108,12 @@ def save_to_csv(tweets, output_folder="output", filename="tweet_text.csv"):
 if __name__ == "__main__":
     driver = setup_driver()
 
-    username = "optionaluser151"
-    password = "123Sourov"
+    username = "put twitter username"
+    password = "put password here"
     login(driver, username, password)  # Login to the twitter before login
 
-    url_or_account = "nasa"  # Can be either a URL or an account name
-    # url_or_account = "elonmusk"  # Can be either a URL or an account name
+    # url_or_account = "nasa"  # Can be either a URL or an account name
+    url_or_account = "https://x.com/NASA"  # Can be either a URL or an account name
     page_number = 5  # Number of pages to scroll
 
     texts = scrape_tweets(driver, url_or_account, page_number)
