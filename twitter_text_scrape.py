@@ -20,15 +20,35 @@ XPATH_TEXT = './/div[@data-testid="tweetText"]'
 TIME_INTERVAL_EXPLICIT_WAIT = 10
 
 
-# Function to set up the WebDriver
+# # Function to set up the WebDriver
+# def setup_driver():
+#     # Automatically download and install the appropriate ChromeDriver
+#     chromedriver_autoinstaller.install()
+
+#     options = webdriver.ChromeOptions()
+#     options.add_argument('--headless')  # Run in headless mode
+#     options.add_argument("--no-sandbox")
+#     options.add_argument("--disable-dev-shm-usage")
+#     driver = webdriver.Chrome(options=options)
+#     return driver
+
 def setup_driver():
     # Automatically download and install the appropriate ChromeDriver
     chromedriver_autoinstaller.install()
 
     options = webdriver.ChromeOptions()
-    # options.add_argument('--headless')  # Run in headless mode
-    options.add_argument("--no-sandbox")
-    options.add_argument("--disable-dev-shm-usage")
+    options.add_argument('--headless')  # Run in headless mode
+    options.add_argument('--disable-gpu')
+    options.add_argument('--window-size=1920x1080')
+    options.add_argument('--disable-dev-shm-usage')
+    options.add_argument('--no-sandbox')
+    options.add_argument('--disable-software-rasterizer')
+    options.add_argument('start-maximized')
+    options.add_argument('enable-automation')
+    options.add_argument('--disable-infobars')
+    options.add_argument('--disable-extensions')
+    options.add_argument('--disable-browser-side-navigation')
+    options.add_argument('--disable-notifications')
     driver = webdriver.Chrome(options=options)
     return driver
 
@@ -108,13 +128,13 @@ def save_to_csv(tweets, output_folder="output", filename="tweet_text.csv"):
 if __name__ == "__main__":
     driver = setup_driver()
 
-    username = "put twitter username"
-    password = "put password here"
-    login(driver, username, password)  # Login to the twitter before login
+    # username = "put twitter username"
+    # password = "put password here"
+    # login(driver, username, password)  # Login to the twitter before login
 
-    # url_or_account = "nasa"  # Can be either a URL or an account name
-    url_or_account = "https://x.com/NASA"  # Can be either a URL or an account name
-    page_number = 5  # Number of pages to scroll
+    url_or_account = "nasa"  # Can be either a URL or an account name
+    # url_or_account = "https://x.com/NASA"  # Can be either a URL or an account name
+    page_number = 6  # Number of pages to scroll
 
     texts = scrape_tweets(driver, url_or_account, page_number)
     df = save_to_csv(texts)
